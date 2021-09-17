@@ -1,5 +1,6 @@
 package Agenda;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Agenda {
@@ -70,7 +71,28 @@ public class Agenda {
 	public void crearContactoNuevo(String nombre, String dom, String tel, String mail, LocalDate cumple) {
 		// Para crear un nuevo contacto deberia saber si existe.
 		Contacto newContacto = buscarContacto(nombre); // Método para buscarContacto. El experto en conocer contactos es la agenda entonces lo reciclamos
+		// Si el nuevo contacto es NULO entonces lo crearé
+		if (newContacto == null) {
+			newContacto = new Contacto(nombre, mail, tel, dom, cumple); // Creo el contacto
+			contactos.add(newContacto); // Añado a la coleccion contactos el nuevo contacto
+		}
 	}
+
+	private Contacto buscarContacto(String nombre) {
+		// Iterar sobre la ArrayList para buscar el contacto con un FOR comun y corriente o con una iteracion
+		for(int i=0; i < contactos.size(); i++) { // Mientras i sea menor que Contactos.Size es decir la cant de elementos del array, le sumo 1 a i
+			// Saco el Contacto de la coleccion con una variable auxiliar
+			Contacto aux = contactos.get(i); // Ahora en aux tengo el contacto en la posición i
+			if(aux.sosElContacto(nombre)) { // le pregunto a aux si tiene el contacto
+				return aux; // Si es verdadero (q encuentra al contacto) devuelve al contacto encontrado en aux
+			}
+		}
+		// Si el contacto no existe devuelvo nulo
+		return null;
+		
+	}
+	
+
 	
 	
 	
